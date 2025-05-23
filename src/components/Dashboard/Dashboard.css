@@ -1,0 +1,11 @@
+.dashboard {
+  min-height: 100vh;
+  padding: 2rem;
+  background: var(--background-color);
+}
+
+.dashboard h1 {
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+} 

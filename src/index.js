@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Header from './components/Header/Header';
-import SideMenu from './components/SideMenu/SideMenu';
-import Chat from './components/Chat/Chat';
+import Auth from './components/Auth/Auth';
+import Dashboard from './components/Dashboard/Dashboard';
+import Landing from './components/Landing/Landing';
 
 const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const hostname = window.location.hostname;
+  const devOverride = new URLSearchParams(window.location.search).get('mode');
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  let Component;
+  if (devOverride === 'auth' || hostname.startsWith('auth')) {
+    Component = Auth;
+  } else if (devOverride === 'app' || hostname.startsWith('app')) {
+    Component = Dashboard;
+  } else {
+    Component = Landing;
+  }
 
-  return (
-    <div className="app">
-      <Header onMenuClick={toggleMenu} isMenuOpen={isMenuOpen} />
-      <SideMenu isOpen={isMenuOpen} />
-      <Chat />
-      <main className="main">
-        {/* Здесь будет основной контент */}
-      </main>
-    </div>
-  );
+  return <Component />;
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
